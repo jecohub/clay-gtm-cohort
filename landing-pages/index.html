@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clay Demo Pages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #0A0A0A;
+      --card:   #111111;
+      --border: rgba(255,255,255,0.08);
+      --text:   #F5F5F5;
+      --muted:  rgba(255,255,255,0.40);
+      --green:  #00D4A0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { text-align: center; margin-bottom: 48px; }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .logo span { color: var(--green); }
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 0.9375rem;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 960px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 26px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .card:hover {
+      border-color: rgba(255,255,255,0.16);
+      background: #161616;
+      transform: translateY(-2px);
+    }
+    .card-left { display: flex; flex-direction: column; gap: 6px; }
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .card-meta {
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    .card-company {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .arrow {
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: color 0.18s, transform 0.18s;
+    }
+    .card:hover .arrow { color: var(--text); transform: translateX(3px); }
+
+    /* Per-company accent colors */
+    .retool   { background: rgba(255,104,48,0.12);  color: #FF6830; }
+    .linear   { background: rgba(94,106,210,0.12);  color: #8B87F8; }
+    .loom     { background: rgba(98,93,245,0.12);   color: #8B87F8; }
+    .webflow  { background: rgba(20,110,245,0.12);  color: #4A8FF8; }
+    .airtable { background: rgba(45,127,249,0.12);  color: #5B9CF8; }
+
+    footer {
+      margin-top: 48px;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    footer a { color: var(--green); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">cl<span>ay</span></div>
+    <h1>Demo Landing Pages</h1>
+    <p>Personalized pages for each prospect — pick one to preview.</p>
+  </header>
+
+  <div class="grid">
+
+    <a href="/sarah-retool" class="card">
+      <div class="card-left">
+        <span class="card-name">Sarah Mitchell</span>
+        <span class="card-meta">VP of Revenue Operations</span>
+      </div>
+      <span class="card-company retool">Retool</span>
+      <svg class="arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <a href="/marcus-linear" class="card">
+      <div class="card-left">
+        <span class="card-name">Marcus Chen</span>
+        <span class="card-meta">Head of Growth</span>
+      </div>
+      <span class="card-company linear">Linear</span>
+      <svg class="arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <a href="/emily-loom" class="card">
+      <div class="card-left">
+        <span class="card-name">Emily Rodriguez</span>
+        <span class="card-meta">Director of Sales Development</span>
+      </div>
+      <span class="card-company loom">Loom</span>
+      <svg class="arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <a href="/james-webflow" class="card">
+      <div class="card-left">
+        <span class="card-name">James Okonkwo</span>
+        <span class="card-meta">GTM Engineer</span>
+      </div>
+      <span class="card-company webflow">Webflow</span>
+      <svg class="arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <a href="/rachel-airtable" class="card">
+      <div class="card-left">
+        <span class="card-name">Rachel Goldstein</span>
+        <span class="card-meta">VP of Sales</span>
+      </div>
+      <span class="card-company airtable">Airtable</span>
+      <svg class="arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+  </div>
+
+  <footer>
+    Powered by <a href="https://clay.com">Clay</a>
+  </footer>
+
+</body>
+</html>
