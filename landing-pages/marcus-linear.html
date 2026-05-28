@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clay × Linear — For Marcus Chen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================
+       CLAY × LINEAR — Marcus Chen
+       Inspired by Linear's actual brand:
+       · Nordic Gray dark (#16151A — purple-tinted near-black)
+       · Mercury White text (#F4F5F8)
+       · Signature purple accent (#5E6AD2)
+       · Outfit 900 — geometric, precise, clean
+       · Ultra-minimal, no clutter, every pixel earns its place
+       ===================================================== */
+
+    :root {
+      --bg:        #16151A;   /* Linear Nordic — dark with purple undertone */
+      --bg-1:      #1C1B22;
+      --bg-2:      #222029;
+      --bg-3:      #2A2833;
+
+      --text:      #F4F5F8;   /* Linear Mercury White */
+      --text-2:    rgba(244,245,248,0.58);
+      --text-3:    rgba(244,245,248,0.32);
+
+      --border:    rgba(244,245,248,0.08);
+      --border-2:  rgba(244,245,248,0.14);
+
+      --accent:      #5E6AD2;   /* Linear signature purple/indigo */
+      --accent-dim:  rgba(94,106,210,0.14);
+      --accent-glow: rgba(94,106,210,0.22);
+      --accent-bright: #7B86E2; /* Lighter purple for stats */
+
+      --radius:    8px;
+      --radius-lg: 14px;
+      --max-w:     1060px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Typography ── */
+    h1 {
+      font-size: clamp(3rem, 6.5vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+    h2 {
+      font-size: clamp(1.9rem, 3.8vw, 3rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    p { font-size: 0.9625rem; line-height: 1.72; color: var(--text-2); font-weight: 400; }
+
+    /* ── Label / eyebrow ── */
+    .label {
+      font-size: 0.70rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: -0.01em;
+      padding: 12px 24px;
+      border-radius: 6px;   /* Linear uses slightly rounded, not pill */
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .btn-sm { padding: 9px 18px; font-size: 0.84rem; }
+
+    /* Purple solid — primary */
+    .btn-purple {
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid transparent;
+    }
+    .btn-purple:hover {
+      background: #6B77DC;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    /* Subtle border — secondary */
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-2);
+    }
+    .btn-ghost:hover {
+      background: var(--bg-2);
+      border-color: rgba(244,245,248,0.25);
+    }
+
+    /* Light (for dark CTA section) */
+    .btn-light {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid transparent;
+      font-weight: 800;
+    }
+    .btn-light:hover {
+      background: #e8eaee;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
+
+    /* =====================================================
+       NAV
+       ===================================================== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(22,21,26,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 112px 32px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Linear-style: subtle purple radial from top-right */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 55%;
+      height: 90%;
+      background: radial-gradient(ellipse at 70% 30%, var(--accent-glow) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Faint second glow bottom-left */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -5%;
+      width: 35%;
+      height: 60%;
+      background: radial-gradient(ellipse at 30% 70%, rgba(94,106,210,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(94,106,210,0.25);
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-size: 0.80rem;
+      font-weight: 600;
+      color: var(--accent-bright);
+      margin-bottom: 36px;
+      animation: fade-up 0.45s ease both;
+    }
+
+    .hero h1 {
+      margin-bottom: 28px;
+      animation: fade-up 0.5s 0.06s ease both;
+    }
+
+    .hero h1 .hi {
+      color: var(--accent-bright);
+    }
+
+    .hero-body {
+      max-width: 500px;
+      font-size: 1.05rem;
+      margin-bottom: 40px;
+      animation: fade-up 0.5s 0.12s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: fade-up 0.5s 0.18s ease both;
+    }
+
+    .hero-note {
+      font-size: 0.82rem;
+      color: var(--text-3);
+    }
+
+    /* =====================================================
+       LOGO STRIP
+       ===================================================== */
+    .logo-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-1);
+      padding: 18px 32px;
+    }
+    .logo-strip-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .logo-strip .label { margin: 0; margin-right: 10px; }
+    .logo-pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-3);
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .logo-pill:hover { color: var(--text-2); border-color: var(--border-2); }
+
+    /* =====================================================
+       PAIN POINTS
+       ===================================================== */
+    .pain-points {
+      padding: 96px 32px;
+      background: var(--bg-1);
+    }
+
+    .section-hd { margin-bottom: 52px; }
+    .section-hd h2 { margin-bottom: 10px; }
+    .section-hd p  { max-width: 440px; }
+
+    /* Linear-style: thin full-width bordered list */
+    .pain-list {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .pain-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s ease;
+    }
+    .pain-item:last-child { border-bottom: none; }
+    .pain-item:hover { background: var(--bg-2); }
+
+    .pain-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      padding: 28px 0 28px 24px;
+      display: flex;
+      align-items: flex-start;
+      padding-top: 30px;
+    }
+
+    .pain-body {
+      padding: 26px 28px 26px 0;
+      border-left: 1px solid var(--border);
+    }
+    .pain-body h3 { margin-bottom: 8px; font-size: 1.0rem; }
+    .pain-body p  { font-size: 0.9rem; }
+
+    /* =====================================================
+       FEATURES
+       ===================================================== */
+    .features {
+      padding: 96px 32px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .feat {
+      background: var(--bg-1);
+      padding: 32px 28px;
+      position: relative;
+      transition: background 0.15s ease;
+    }
+    .feat:hover { background: var(--bg-2); }
+
+    /* Purple top-border on hover */
+    .feat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .feat:hover::before { transform: scaleX(1); }
+
+    .feat-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(94,106,210,0.20);
+      border-radius: 4px;
+      padding: 3px 9px;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    .feat h3 { margin-bottom: 10px; font-size: 1.05rem; }
+    .feat p  { font-size: 0.9rem; }
+
+    .feat-metric {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 0.80rem;
+      font-weight: 700;
+      color: var(--accent-bright);
+    }
+
+    /* =====================================================
+       STATS
+       ===================================================== */
+    .stats-section {
+      padding: 96px 32px;
+      background: var(--bg-1);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .stat {
+      background: var(--bg-2);
+      padding: 36px 24px;
+    }
+
+    .stat-num {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--accent-bright);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    /* =====================================================
+       FINAL CTA — deep purple section
+       ===================================================== */
+    .final-cta {
+      padding: 96px 32px;
+      text-align: center;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Purple glow behind CTA text */
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 140%;
+      background: radial-gradient(ellipse at 50% 40%, rgba(94,106,210,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .final-cta .label { position: relative; z-index: 1; }
+    .final-cta h2 { margin-bottom: 16px; position: relative; z-index: 1; }
+    .final-cta p  {
+      color: var(--text-2);
+      max-width: 460px;
+      margin: 0 auto 40px;
+      font-size: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .final-cta .btn { position: relative; z-index: 1; }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      text-align: center;
+    }
+    footer p { font-size: 0.80rem; color: var(--text-3); }
+    footer a { color: var(--text-3); text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--text-2); }
+
+    /* =====================================================
+       ANIMATIONS
+       ===================================================== */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+    @media (max-width: 860px) {
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 96px 20px 60px; }
+      .pain-points, .features, .stats-section, .final-cta { padding: 64px 20px; }
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+      .nav .btn-sm { display: none; }
+      .container { padding: 0 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-pill, .hero h1, .hero-body, .hero-btns { animation: none; }
+      .feat { transition: none; }
+      .feat::before { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">cl<span>ay</span></a>
+      <a href="#book-demo" class="btn btn-ghost btn-sm">
+        Book Your Demo
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span>👋</span> Hey Marcus — built specifically for you
+      </div>
+      <h1>
+        Linear is built for speed.<br/>
+        <span class="hi">Your outbound motion</span><br/>
+        should be too.
+      </h1>
+      <p class="hero-body">
+        You're scaling growth at one of the most product-forward companies in dev tools.
+        But growth teams without the right data infrastructure hit a ceiling fast.
+        Clay gives you the data layer to run experiments, build targeted lists,
+        and personalize outreach — without slowing down.
+      </p>
+      <div class="hero-btns">
+        <a href="#book-demo" class="btn btn-purple">
+          Book Your Demo
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="hero-note">30 min · No prep needed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO STRIP -->
+  <div class="logo-strip">
+    <div class="logo-strip-inner">
+      <span class="label">Trusted by</span>
+      <span class="logo-pill">OpenAI</span>
+      <span class="logo-pill">Anthropic</span>
+      <span class="logo-pill">Notion</span>
+      <span class="logo-pill">Ramp</span>
+      <span class="logo-pill">Rippling</span>
+      <span class="logo-pill">Canva</span>
+      <span class="logo-pill">Intercom</span>
+    </div>
+  </div>
+
+  <!-- PAIN POINTS -->
+  <section class="pain-points">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">Sound familiar?</div>
+        <h2>The growth blockers<br/>you keep running into</h2>
+        <p>Every Head of Growth knows these walls. Clay tears them down.</p>
+      </div>
+      <div class="pain-list">
+        <div class="pain-item">
+          <span class="pain-num">01</span>
+          <div class="pain-body">
+            <h3>Outbound lists that go stale overnight</h3>
+            <p>The list you built last week is already outdated. Job changes, funding rounds, tech installs — Clay tracks signals so your lists stay fresh automatically.</p>
+          </div>
+        </div>
+        <div class="pain-item">
+          <span class="pain-num">02</span>
+          <div class="pain-body">
+            <h3>Slow speed-to-lead on intent signals</h3>
+            <p>When a high-fit company visits your site or a champion changes jobs, every hour of delay costs you the deal. Clay triggers workflows in real-time so you reach out at exactly the right moment.</p>
+          </div>
+        </div>
+        <div class="pain-item">
+          <span class="pain-num">03</span>
+          <div class="pain-body">
+            <h3>Experiments that die for lack of data</h3>
+            <p>Great GTM ideas need data to test. Clay gives you the research layer to validate hypotheses fast — without waiting on Ops or buying another tool.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">How Clay works</div>
+        <h2>Built for growth teams<br/>who move fast.</h2>
+        <p>Clay is the data layer your entire GTM motion runs on.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat">
+          <span class="feat-tag">List Building</span>
+          <h3>Build hyper-targeted prospect lists at scale.</h3>
+          <p>Pull from LinkedIn, job boards, funding databases, and 147+ more sources. Filter by tech stack, headcount, recent funding, or any signal that matters to your ICP.</p>
+          <div class="feat-metric">↑ 3x coverage vs. single-provider tools</div>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">Claygent AI Research</span>
+          <h3>AI agents that research accounts in seconds.</h3>
+          <p>Claygent scrapes company websites, reads LinkedIn profiles, and summarizes what they do — so your outreach references what actually matters to each account.</p>
+          <div class="feat-metric">↓ 80% reduction in manual research time</div>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">Intent Triggers</span>
+          <h3>Trigger outreach on the signals that matter.</h3>
+          <p>Champion job changes. New funding rounds. Tech installs. Clay monitors signals and fires workflows automatically — so you reach out at exactly the right moment.</p>
+          <div class="feat-metric">5,000+ customers trust Clay for their GTM data</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="label" style="margin-bottom:32px;">By the numbers</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-num">3x</span>
+          <span class="stat-label">enrichment coverage vs. single-provider tools</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">80%</span>
+          <span class="stat-label">reduction in manual research time</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">5k+</span>
+          <span class="stat-label">customers across B2B SaaS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">4.9★</span>
+          <span class="stat-label">rating on G2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="book-demo">
+    <div class="container">
+      <div class="label">Let's talk</div>
+      <h2>Ready to see what Clay can do<br/>for Linear's growth team?</h2>
+      <p>30 minutes. We'll walk through your current stack, show you how Clay's signal tracking works live, and build a workflow specific to Linear's outbound motion.</p>
+      <!-- TODO: Replace CALENDLY_LINK_PLACEHOLDER with real Calendly URL before sharing -->
+      <a href="CALENDLY_LINK_PLACEHOLDER" class="btn btn-light">
+        Book Your Demo — It's Free
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built for Marcus Chen at Linear · Powered by <a href="https://clay.com">Clay</a> · <a href="https://clay.com/privacy">Privacy</a></p>
+  </footer>
+
+</body>
+</html>

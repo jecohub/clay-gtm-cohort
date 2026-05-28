@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clay × Airtable — For Rachel Goldstein</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================
+       CLAY × AIRTABLE — Rachel Goldstein
+       Inspired by Airtable's brand:
+       · Clean white background — open, enterprise-friendly
+       · Airtable blue #2D7FF9 as primary action color
+       · Multi-color accents: yellow, green, red — Airtable's
+         signature "spreadsheet rainbow" energy
+       · Plus Jakarta Sans 800 — modern, precise, confident
+       · Light and spacious, but with colorful moments
+       ===================================================== */
+
+    :root {
+      --bg:         #FFFFFF;
+      --bg-soft:    #F9FAFB;   /* Very light gray */
+      --bg-dark:    #111827;   /* Dark section */
+
+      --text:       #111827;
+      --text-2:     #4B5563;
+      --text-3:     #9CA3AF;
+
+      --border:     rgba(17,24,39,0.08);
+      --border-b:   rgba(45,127,249,0.20);
+
+      /* Airtable primary */
+      --blue:       #2D7FF9;
+      --blue-dim:   rgba(45,127,249,0.10);
+      --blue-glow:  rgba(45,127,249,0.18);
+      --blue-dark:  #1A6AE8;
+
+      /* Airtable accent colors (the "rainbow" system) */
+      --yellow:     #F5A623;
+      --yellow-dim: rgba(245,166,35,0.12);
+      --green:      #20C05C;
+      --green-dim:  rgba(32,192,92,0.12);
+      --red:        #F82B60;
+      --red-dim:    rgba(248,43,96,0.10);
+
+      --radius:     8px;
+      --radius-lg:  16px;
+      --max-w:      1060px;
+
+      --shadow-sm:  0 1px 4px rgba(17,24,39,0.06);
+      --shadow-md:  0 4px 20px rgba(17,24,39,0.08);
+      --shadow-b:   0 4px 20px rgba(45,127,249,0.20);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Typography ── */
+    h1 {
+      font-size: clamp(2.6rem, 5.8vw, 4.6rem);
+      font-weight: 800;
+      line-height: 1.07;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    p { font-size: 0.9875rem; line-height: 1.72; color: var(--text-2); }
+
+    /* ── Label ── */
+    .label {
+      font-size: 0.70rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 13px 26px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .btn-sm { padding: 10px 20px; font-size: 0.875rem; }
+
+    .btn-blue {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: var(--shadow-b);
+    }
+    .btn-blue:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--blue-glow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-1px);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--blue);
+      font-weight: 800;
+      box-shadow: var(--shadow-md);
+    }
+    .btn-white:hover {
+      background: #f0f7ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    /* =====================================================
+       NAV
+       ===================================================== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--blue); }
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 116px 32px 80px;
+      background: var(--bg-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Blue glow top right */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -8%;
+      width: 50%;
+      height: 80%;
+      background: radial-gradient(ellipse at 70% 25%, var(--blue-glow) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Yellow warmth bottom left */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -5%;
+      left: -5%;
+      width: 35%;
+      height: 55%;
+      background: radial-gradient(ellipse at 30% 70%, rgba(245,166,35,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 18px 8px 12px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-2);
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+      animation: fade-up 0.48s ease both;
+    }
+
+    .hero h1 {
+      margin-bottom: 24px;
+      animation: fade-up 0.52s 0.07s ease both;
+    }
+
+    .hero h1 .blue  { color: var(--blue); }
+
+    .hero-desc {
+      max-width: 540px;
+      font-size: 1.08rem;
+      margin-bottom: 40px;
+      animation: fade-up 0.52s 0.13s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fade-up 0.52s 0.19s ease both;
+    }
+
+    .hero-note { font-size: 0.84rem; color: var(--text-3); }
+
+    /* =====================================================
+       LOGO STRIP
+       ===================================================== */
+    .logo-strip {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+    }
+    .logo-strip-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .logo-strip .label { margin: 0; margin-right: 10px; }
+    .logo-pill {
+      font-size: 0.80rem;
+      font-weight: 600;
+      color: var(--text-3);
+      padding: 5px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .logo-pill:hover { color: var(--blue); border-color: var(--border-b); }
+
+    /* =====================================================
+       PAIN POINTS
+       ===================================================== */
+    .pain-points {
+      padding: 96px 32px;
+      background: var(--bg);
+    }
+
+    .section-hd { margin-bottom: 52px; }
+    .section-hd h2 { margin-bottom: 12px; }
+    .section-hd p  { max-width: 440px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Colored top border per card — Airtable rainbow */
+    .card:nth-child(1) { border-top: 3px solid var(--yellow); }
+    .card:nth-child(2) { border-top: 3px solid var(--red); }
+    .card:nth-child(3) { border-top: 3px solid var(--green); }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+    .card:nth-child(1) .card-icon { background: var(--yellow-dim); }
+    .card:nth-child(2) .card-icon { background: var(--red-dim); }
+    .card:nth-child(3) .card-icon { background: var(--green-dim); }
+
+    .card h3 { margin-bottom: 10px; }
+    .card p  { font-size: 0.9375rem; }
+
+    /* =====================================================
+       FEATURES — Dark section
+       ===================================================== */
+    .features {
+      background: var(--bg-dark);
+      padding: 96px 32px;
+    }
+
+    .features .label { color: #60A5FA; }
+    .features h2 { color: #fff; }
+    .features .section-hd p { color: rgba(255,255,255,0.55); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .feat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .feat:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(45,127,249,0.30);
+    }
+
+    /* Blue glow bottom-right */
+    .feat::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(45,127,249,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .feat:hover::after { opacity: 1; }
+
+    .feat-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #60A5FA;
+      background: rgba(45,127,249,0.12);
+      border: 1px solid rgba(45,127,249,0.22);
+      border-radius: 6px;
+      padding: 3px 9px;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    .feat h3 { color: #fff; font-size: 1.05rem; margin-bottom: 10px; }
+    .feat p  { color: rgba(255,255,255,0.58); font-size: 0.9rem; }
+
+    .feat-stat {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.80rem;
+      font-weight: 700;
+      color: #60A5FA;
+    }
+
+    /* =====================================================
+       STATS
+       ===================================================== */
+    .stats-section {
+      padding: 96px 32px;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 18px;
+      margin-bottom: 56px;
+    }
+
+    .stat {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 20px;
+      text-align: center;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stat:hover { border-color: var(--border-b); box-shadow: var(--shadow-md); }
+
+    .stat-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--blue);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-3);
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    .logos-label {
+      font-size: 0.70rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .logos-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .logo-chip {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-2);
+    }
+
+    /* =====================================================
+       FINAL CTA — Airtable blue full section
+       ===================================================== */
+    .final-cta {
+      background: var(--blue);
+      padding: 96px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Airtable rainbow dots texture */
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -5%;
+      width: 60%;
+      aspect-ratio: 1;
+      background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .final-cta::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 50%;
+      aspect-ratio: 1;
+      background: radial-gradient(circle, rgba(32,192,92,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .final-cta .label { color: rgba(255,255,255,0.55); position: relative; z-index: 1; }
+    .final-cta h2 { color: #fff; margin-bottom: 16px; position: relative; z-index: 1; }
+    .final-cta p  {
+      color: rgba(255,255,255,0.75);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      font-size: 1.05rem;
+      position: relative;
+      z-index: 1;
+    }
+    .final-cta .btn { position: relative; z-index: 1; }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    footer {
+      background: var(--bg-dark);
+      padding: 26px 32px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    footer p { font-size: 0.8125rem; color: rgba(255,255,255,0.28); }
+    footer a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: rgba(255,255,255,0.70); }
+
+    /* =====================================================
+       ANIMATIONS
+       ===================================================== */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+    @media (max-width: 860px) {
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 96px 20px 64px; }
+      .pain-points, .features, .stats-section, .final-cta { padding: 64px 20px; }
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+      .nav .btn-sm { display: none; }
+      .container { padding: 0 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-badge, .hero h1, .hero-desc, .hero-btns { animation: none; }
+      .card, .feat, .stat { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">cl<span>ay</span></a>
+      <a href="#book-demo" class="btn btn-blue btn-sm">
+        Book Your Demo
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span>👋</span>
+        Hey Rachel — this one's built for you
+      </div>
+      <h1>
+        Better pipeline starts<br/>
+        with <span class="blue">better data.</span>
+      </h1>
+      <p class="hero-desc">
+        As VP of Sales at Airtable, your forecast is only as good as the accounts in your pipeline.
+        If your reps are chasing the wrong accounts with stale data, every number you report is
+        built on sand. Clay gives your team the data foundation to prioritize better, personalize
+        smarter, and close faster.
+      </p>
+      <div class="hero-btns">
+        <a href="#book-demo" class="btn btn-blue">
+          Book Your Demo
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="hero-note">30 min · No prep needed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO STRIP -->
+  <div class="logo-strip">
+    <div class="logo-strip-inner">
+      <span class="label">Trusted by</span>
+      <span class="logo-pill">OpenAI</span>
+      <span class="logo-pill">Anthropic</span>
+      <span class="logo-pill">Notion</span>
+      <span class="logo-pill">Ramp</span>
+      <span class="logo-pill">Rippling</span>
+      <span class="logo-pill">Canva</span>
+      <span class="logo-pill">Intercom</span>
+    </div>
+  </div>
+
+  <!-- PAIN POINTS -->
+  <section class="pain-points">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">Sound familiar?</div>
+        <h2>The sales problems that<br/>quietly kill your forecast</h2>
+        <p>Every VP of Sales fights these battles. Clay gives you a real edge.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">📊</div>
+          <h3>Reps chasing unqualified accounts</h3>
+          <p>Without enriched ICP signals, reps waste cycles on accounts that will never convert. Clay enriches every account with firmographic, technographic, and intent data so your team focuses on real buyers.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">🎯</div>
+          <h3>Forecast you can't stand behind</h3>
+          <p>Stale data means stale pipeline. When job titles, company sizes, and tech stacks are wrong, your ICP scoring breaks down. Clay keeps your data current automatically so your forecast reflects reality.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">🚀</div>
+          <h3>New reps ramping too slowly</h3>
+          <p>New reps spend their first 60 days learning the ICP, building lists, and doing research. Clay compresses that ramp by giving them enriched, prioritized accounts from day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">How Clay works</div>
+        <h2>Built for sales leaders<br/>who close on data.</h2>
+        <p>Clay gives your team the intelligence to work the right accounts, at the right time, with the right message.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat">
+          <span class="feat-tag">ICP Scoring</span>
+          <h3>ICP scoring that actually reflects your buyers.</h3>
+          <p>Enrich every account with tech stack, headcount, funding stage, and 100+ signals. Score accounts automatically against your ICP so reps focus on the accounts most likely to close.</p>
+          <div class="feat-stat">↑ Higher conversion rates from better-qualified pipeline</div>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">Waterfall Enrichment</span>
+          <h3>Data your whole team can trust.</h3>
+          <p>Waterfall enrichment across 150+ providers means your CRM data is always fresh. No more stale contacts. No more arguing about whether the account is big enough to pursue.</p>
+          <div class="feat-stat">↑ 3x enrichment coverage vs. single-provider tools</div>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">AI Personalization</span>
+          <h3>Personalization that doesn't slow down your reps.</h3>
+          <p>Clay's AI researches accounts at scale and generates personalized outreach angles automatically — so your reps spend time selling, not writing the same email 40 different ways.</p>
+          <div class="feat-stat">↓ 80% reduction in manual research time</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="label" style="text-align:center; margin-bottom:36px;">By the numbers</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-num">3x</span>
+          <span class="stat-label">enrichment coverage vs. single tools</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">80%</span>
+          <span class="stat-label">reduction in manual research time</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">5k+</span>
+          <span class="stat-label">customers across B2B SaaS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">4.9★</span>
+          <span class="stat-label">rating on G2</span>
+        </div>
+      </div>
+      <p class="logos-label">Trusted by teams at</p>
+      <div class="logos-row">
+        <span class="logo-chip">OpenAI</span>
+        <span class="logo-chip">Anthropic</span>
+        <span class="logo-chip">Notion</span>
+        <span class="logo-chip">Ramp</span>
+        <span class="logo-chip">Rippling</span>
+        <span class="logo-chip">Canva</span>
+        <span class="logo-chip">Intercom</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="book-demo">
+    <div class="container">
+      <div class="label">Let's talk</div>
+      <h2>See how Clay helps<br/>Airtable's sales team close more.</h2>
+      <p>30 minutes. We'll walk through your pipeline quality challenges, show you how Clay enriches and scores accounts live, and build a workflow specific to Airtable's ICP.</p>
+      <!-- TODO: Replace CALENDLY_LINK_PLACEHOLDER with real Calendly URL before sharing -->
+      <a href="CALENDLY_LINK_PLACEHOLDER" class="btn btn-white">
+        Book Your Demo — It's Free
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built for Rachel Goldstein at Airtable · Powered by <a href="https://clay.com">Clay</a> · <a href="https://clay.com/privacy">Privacy</a></p>
+  </footer>
+
+</body>
+</html>

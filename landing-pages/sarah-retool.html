@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clay × Retool — For Sarah Mitchell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700;800;900&family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================
+       CLAY × RETOOL — Sarah Mitchell
+       Matches Retool's actual website aesthetic:
+       · Near-black warm background  (#100E0D)
+       · Pure white bold display type
+       · Barlow 900 headlines (matches Retool's heavy geo sans)
+       · Minimal color — near-monochrome with warm tints
+       · Outlined + solid white buttons
+       ===================================================== */
+
+    :root {
+      --bg:         #100E0D;   /* Warm near-black — matches Retool hero bg */
+      --bg-1:       #181513;   /* Slightly lighter for sections */
+      --bg-2:       #1F1B19;   /* Card / surface */
+      --bg-3:       #252019;   /* Hover state */
+
+      --text:       #FFFFFF;
+      --text-2:     rgba(255,255,255,0.62);
+      --text-3:     rgba(255,255,255,0.38);
+
+      --border:     rgba(255,255,255,0.08);
+      --border-2:   rgba(255,255,255,0.14);
+
+      /* Accent — warm orange (Retool's historical brand energy) */
+      --accent:       #FF6830;
+      --accent-dim:   rgba(255, 104, 48, 0.12);
+      --accent-glow:  rgba(255, 104, 48, 0.18);
+
+      --cream:      #F5F0E8;   /* "Start for free" button warmth */
+
+      --shadow-card: 0 1px 0 rgba(255,255,255,0.04) inset,
+                     0 1px 24px rgba(0,0,0,0.25);
+
+      --radius:     10px;
+      --radius-lg:  16px;
+      --max-w:      1080px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Typography ── */
+    h1 {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+    h2 {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+    h3 {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    p { font-size: 0.9875rem; line-height: 1.72; color: var(--text-2); }
+
+    /* ── Buttons — matches Retool's outlined + solid style ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      letter-spacing: -0.01em;
+      padding: 13px 26px;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 3px; }
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .btn-sm { padding: 9px 20px; font-size: 0.875rem; }
+
+    /* Outlined white — "Book a demo" style (secondary) */
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.7);
+      transform: translateY(-1px);
+    }
+
+    /* Solid cream/white — "Start for free" style (primary) */
+    .btn-solid {
+      background: var(--cream);
+      color: #100E0D;
+      border: 1.5px solid transparent;
+      font-weight: 800;
+    }
+    .btn-solid:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.40);
+    }
+
+    /* Dark inverted (for light sections) */
+    .btn-dark {
+      background: var(--bg);
+      color: var(--text);
+      border: 1.5px solid transparent;
+      font-weight: 800;
+    }
+    .btn-dark:hover {
+      background: #1F1B19;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    }
+
+    /* ── Section label ── */
+    .label {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    /* ── Thin rule ── */
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* =====================================================
+       NAV — mirrors Retool's clean dark nav
+       ===================================================== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(16,14,13,0.80);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Barlow', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    /* =====================================================
+       HERO — huge white type on dark bg, matches Retool
+       ===================================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 32px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Accent glow — warm orange radial behind the headline */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse at 75% 25%, var(--accent-glow) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Greeting pill */
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid var(--border-2);
+      border-radius: 50px;
+      padding: 7px 16px 7px 11px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-2);
+      margin-bottom: 40px;
+      animation: fade-in 0.5s ease both;
+    }
+
+    .hero h1 {
+      margin-bottom: 32px;
+      animation: fade-in 0.55s 0.06s ease both;
+    }
+
+    /* Accent line — orange warmth on the key phrase */
+    .hero h1 .dim {
+      color: var(--accent);
+    }
+
+    .hero-body {
+      max-width: 520px;
+      font-size: 1.05rem;
+      line-height: 1.70;
+      margin-bottom: 44px;
+      animation: fade-in 0.55s 0.12s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fade-in 0.55s 0.18s ease both;
+    }
+
+    /* =====================================================
+       DIVIDER + LOGO STRIP (subtle)
+       ===================================================== */
+    .logo-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      background: var(--bg-1);
+    }
+    .logo-strip-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .logo-strip .label { margin: 0; margin-right: 8px; }
+    .logo-pill {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-3);
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .logo-pill:hover { color: var(--text-2); border-color: var(--border-2); }
+
+    /* =====================================================
+       PAIN POINTS
+       ===================================================== */
+    .pain-points {
+      padding: 100px 32px;
+      background: var(--bg-1);
+    }
+
+    .section-hd { margin-bottom: 56px; }
+    .section-hd h2 { margin-bottom: 12px; }
+    .section-hd p  { max-width: 460px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .card {
+      background: var(--bg-2);
+      padding: 36px 32px;
+      transition: background 0.2s ease;
+    }
+    .card:hover { background: var(--bg-3); }
+
+    .card-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--accent-dim);
+      color: rgba(255, 104, 48, 0.25);
+      margin-bottom: 20px;
+      display: block;
+    }
+    .card h3 { margin-bottom: 12px; }
+    .card p { font-size: 0.9375rem; }
+
+    /* =====================================================
+       FEATURES
+       ===================================================== */
+    .features {
+      padding: 100px 32px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+    }
+
+    .feat {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      background: var(--bg-1);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .feat:hover {
+      border-color: var(--border-2);
+      background: var(--bg-2);
+    }
+
+    /* Subtle warm top-edge highlight on hover */
+    .feat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 16px; right: 16px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .feat:hover::before { opacity: 1; }
+
+    .feat-badge {
+      display: inline-block;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(255, 104, 48, 0.30);
+      background: var(--accent-dim);
+      border-radius: 4px;
+      padding: 3px 9px;
+      margin-bottom: 20px;
+    }
+    .feat h3 { margin-bottom: 12px; font-size: 1.15rem; }
+    .feat p  { font-size: 0.9375rem; line-height: 1.65; }
+
+    .feat-stat {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--accent);
+    }
+
+    /* =====================================================
+       STATS — large numbers, Retool-style minimal
+       ===================================================== */
+    .stats-section {
+      padding: 100px 32px;
+      background: var(--bg-1);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 56px;
+    }
+
+    .stat {
+      background: var(--bg-2);
+      padding: 40px 24px;
+      text-align: left;
+    }
+
+    .stat-num {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    /* =====================================================
+       FINAL CTA — light/cream inversion (memorable contrast)
+       ===================================================== */
+    .final-cta {
+      background: var(--cream);
+      padding: 100px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta h2 { color: var(--bg); }
+    .final-cta p  { color: rgba(16,14,13,0.60); max-width: 480px; margin: 16px auto 44px; font-size: 1.05rem; }
+    .final-cta .label { color: rgba(16,14,13,0.38); }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 28px 32px;
+      text-align: center;
+    }
+    footer p { font-size: 0.8125rem; color: var(--text-3); }
+    footer a { color: var(--text-3); text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--text-2); }
+
+    /* =====================================================
+       ANIMATIONS
+       ===================================================== */
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+    @media (max-width: 860px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero  { padding: 100px 20px 64px; }
+      .pain-points, .features, .stats-section, .final-cta { padding: 64px 20px; }
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+      .nav .btn-sm { display: none; }
+      .container { padding: 0 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-pill, .hero h1, .hero-body, .hero-btns { animation: none; }
+      .card, .feat { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">cl<span>ay</span></a>
+      <a href="#book-demo" class="btn btn-outline btn-sm">
+        Book Your Demo
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span>👋</span>
+        Hey Sarah — this one's built for you
+      </div>
+      <h1>
+        Retool deserves<br/>
+        a GTM stack<br/>
+        <span class="dim">that actually works.</span>
+      </h1>
+      <p class="hero-body">
+        You're running RevOps at one of the most respected developer tools companies in the world.
+        Your enrichment coverage shouldn't be stuck at 60%, your CRM data shouldn't be stale,
+        and your team shouldn't be drowning in manual research. Clay fixes all three.
+      </p>
+      <div class="hero-btns">
+        <a href="#book-demo" class="btn btn-solid">
+          Book Your Demo
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span style="font-size:0.85rem; color:var(--text-3);">30 min · No prep needed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOGO STRIP ===== -->
+  <div class="logo-strip">
+    <div class="logo-strip-inner">
+      <span class="label">Trusted by</span>
+      <span class="logo-pill">OpenAI</span>
+      <span class="logo-pill">Anthropic</span>
+      <span class="logo-pill">Notion</span>
+      <span class="logo-pill">Ramp</span>
+      <span class="logo-pill">Rippling</span>
+      <span class="logo-pill">Canva</span>
+      <span class="logo-pill">Intercom</span>
+    </div>
+  </div>
+
+  <!-- ===== PAIN POINTS ===== -->
+  <section class="pain-points">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">Sound familiar?</div>
+        <h2>The RevOps problems<br/>that never go away</h2>
+        <p>Every RevOps leader knows these pain points. Clay was built to eliminate them.</p>
+      </div>
+      <div class="cards">
+
+        <div class="card">
+          <span class="card-num" aria-hidden="true">01</span>
+          <h3>CRM data nobody trusts</h3>
+          <p>Stale contacts, outdated job titles, wrong company sizes. When your reps can't trust the data, they do their own research — and RevOps loses visibility. Clay auto-refreshes your CRM at scale.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-num" aria-hidden="true">02</span>
+          <h3>Paying for 5 tools, still hitting gaps</h3>
+          <p>ZoomInfo, Clearbit, Apollo — each gives you 40–60% coverage. You're paying for all of them and still missing data. Clay waterfalls through 150+ providers so you stop paying for gaps.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-num" aria-hidden="true">03</span>
+          <h3>Personalization that doesn't scale</h3>
+          <p>Your team can send generic sequences or spend hours personalizing manually. Neither works. Clay's AI agents research accounts at scale so every outreach feels 1-to-1 without the headcount.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">How Clay works</div>
+        <h2>Built for RevOps teams<br/>who run on data.</h2>
+        <p>Clay connects your entire GTM stack and fills in everything else.</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="feat">
+          <span class="feat-badge">Waterfall Enrichment</span>
+          <h3>2–3x your coverage. Instantly.</h3>
+          <p>Instead of hitting one data provider and stopping at 60%, Clay cascades through 150+ sources — LinkedIn, Clearbit, Hunter, Apollo, and 147 more — until it finds what you need.</p>
+          <div class="feat-stat">↑ 3x coverage vs. single-provider tools</div>
+        </div>
+
+        <div class="feat">
+          <span class="feat-badge">Claygent AI Research</span>
+          <h3>AI that researches accounts so your team doesn't have to.</h3>
+          <p>Claygent scrapes websites, reads LinkedIn profiles, and summarizes company news — then outputs structured data your CRM can actually use. Research that takes hours happens in seconds.</p>
+          <div class="feat-stat">↓ 80% reduction in manual research time</div>
+        </div>
+
+        <div class="feat">
+          <span class="feat-badge">Stack Consolidation</span>
+          <h3>One platform. Not 10 tools fighting each other.</h3>
+          <p>Replace your fragmented enrichment stack with a single workflow. Clay integrates with Salesforce, HubSpot, Outreach, Salesloft, and your whole existing stack.</p>
+          <div class="feat-stat">5,000+ customers trust Clay for their GTM data</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="label" style="margin-bottom:36px;">By the numbers</div>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num">3x</span>
+          <span class="stat-label">enrichment coverage vs.<br/>single-provider tools</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">80%</span>
+          <span class="stat-label">reduction in manual<br/>research time</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">5k+</span>
+          <span class="stat-label">customers across<br/>B2B SaaS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">4.9★</span>
+          <span class="stat-label">rating on G2<br/>&nbsp;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section class="final-cta" id="book-demo">
+    <div class="container">
+      <div class="label">Let's talk</div>
+      <h2>Ready to see what Clay can do<br/>for Retool's RevOps?</h2>
+      <p>30 minutes. We'll walk through your current stack, show you how waterfall enrichment works live, and build a workflow specific to Retool's use case.</p>
+      <!-- TODO: Replace CALENDLY_LINK_PLACEHOLDER with real Calendly URL before sharing -->
+      <a href="CALENDLY_LINK_PLACEHOLDER" class="btn btn-dark">
+        Book Your Demo — It's Free
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>Built for Sarah Mitchell at Retool · Powered by <a href="https://clay.com">Clay</a> · <a href="https://clay.com/privacy">Privacy</a></p>
+  </footer>
+
+</body>
+</html>

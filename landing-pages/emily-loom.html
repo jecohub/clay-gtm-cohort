@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clay × Loom — For Emily Rodriguez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================
+       CLAY × LOOM — Emily Rodriguez
+       Inspired by Loom's brand:
+       · Clean white/light background — open, generous space
+       · Loom violet #625DF5 as primary accent
+       · Coral/warm secondary #FF6B4A
+       · Nunito 900 — rounded, warm, approachable
+       · Light, friendly, human — mirrors Loom's video-first brand
+       ===================================================== */
+
+    :root {
+      --bg:         #FFFFFF;
+      --bg-soft:    #F8F7FF;   /* Very faint violet tint */
+      --bg-card:    #FFFFFF;
+      --bg-dark:    #1A1035;   /* Loom dark navy for contrast section */
+
+      --text:       #1A1035;   /* Deep navy — warm dark */
+      --text-2:     #4A4565;
+      --text-3:     #9894B0;
+
+      --border:     rgba(26,16,53,0.08);
+      --border-v:   rgba(98,93,245,0.20);
+
+      --violet:     #625DF5;   /* Loom signature violet */
+      --violet-dim: rgba(98,93,245,0.10);
+      --violet-glow:rgba(98,93,245,0.18);
+      --violet-lt:  #8B87F8;   /* Lighter violet for dark bg */
+
+      --coral:      #FF6B4A;   /* Warm secondary accent */
+      --coral-dim:  rgba(255,107,74,0.10);
+
+      --radius:     10px;
+      --radius-lg:  18px;
+      --max-w:      1060px;
+
+      --shadow-sm:  0 1px 4px rgba(26,16,53,0.06);
+      --shadow-md:  0 4px 20px rgba(26,16,53,0.08);
+      --shadow-v:   0 6px 28px rgba(98,93,245,0.20);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Typography ── */
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    p { font-size: 0.9875rem; line-height: 1.72; color: var(--text-2); }
+
+    /* ── Label ── */
+    .label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.9375rem;
+      padding: 14px 28px;
+      border-radius: 50px;   /* Loom uses pill buttons */
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .btn-sm { padding: 10px 22px; font-size: 0.875rem; }
+
+    .btn-violet {
+      background: var(--violet);
+      color: #fff;
+      box-shadow: var(--shadow-v);
+    }
+    .btn-violet:hover {
+      background: #5350E8;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(98,93,245,0.30);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--violet);
+      color: var(--violet);
+      transform: translateY(-1px);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--violet);
+      font-weight: 900;
+    }
+    .btn-white:hover {
+      background: #f5f4ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    }
+
+    /* =====================================================
+       NAV
+       ===================================================== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--violet); }
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 116px 32px 80px;
+      background: var(--bg-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Soft violet glow top right */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -8%;
+      width: 50%;
+      height: 80%;
+      background: radial-gradient(ellipse at 70% 25%, var(--violet-glow) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Coral glow bottom left */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -5%;
+      left: -5%;
+      width: 35%;
+      height: 55%;
+      background: radial-gradient(ellipse at 30% 70%, rgba(255,107,74,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-v);
+      border-radius: 50px;
+      padding: 8px 18px 8px 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-2);
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+      animation: fade-up 0.48s ease both;
+    }
+
+    .hero h1 {
+      margin-bottom: 24px;
+      animation: fade-up 0.52s 0.07s ease both;
+    }
+
+    .hero h1 .accent { color: var(--violet); }
+    .hero h1 .warm   { color: var(--coral); }
+
+    .hero-desc {
+      max-width: 540px;
+      font-size: 1.08rem;
+      margin-bottom: 40px;
+      animation: fade-up 0.52s 0.13s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fade-up 0.52s 0.19s ease both;
+    }
+
+    .hero-note { font-size: 0.84rem; color: var(--text-3); }
+
+    /* =====================================================
+       LOGO STRIP
+       ===================================================== */
+    .logo-strip {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+    }
+    .logo-strip-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .logo-strip .label { margin: 0; margin-right: 10px; }
+    .logo-pill {
+      font-size: 0.80rem;
+      font-weight: 700;
+      color: var(--text-3);
+      padding: 5px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .logo-pill:hover { color: var(--violet); border-color: var(--border-v); }
+
+    /* =====================================================
+       PAIN POINTS
+       ===================================================== */
+    .pain-points {
+      padding: 96px 32px;
+      background: var(--bg-card);
+    }
+
+    .section-hd { margin-bottom: 52px; }
+    .section-hd h2 { margin-bottom: 12px; }
+    .section-hd p  { max-width: 440px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-v);
+    }
+
+    .card-emoji { font-size: 1.8rem; margin-bottom: 16px; display: block; line-height: 1; }
+    .card h3 { margin-bottom: 10px; }
+    .card p  { font-size: 0.9375rem; }
+
+    /* =====================================================
+       FEATURES — dark navy section (Loom contrast)
+       ===================================================== */
+    .features {
+      background: var(--bg-dark);
+      padding: 96px 32px;
+    }
+
+    .features .label { color: var(--violet-lt); }
+    .features h2 { color: #fff; }
+    .features .section-hd p { color: rgba(255,255,255,0.55); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .feat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .feat:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(98,93,245,0.30);
+    }
+
+    /* Violet left accent */
+    .feat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--violet);
+      border-radius: 3px 0 0 3px;
+    }
+
+    .feat-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--violet-lt);
+      background: rgba(98,93,245,0.14);
+      border: 1px solid rgba(98,93,245,0.22);
+      border-radius: 50px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    .feat h3 { color: #fff; font-size: 1.1rem; margin-bottom: 10px; }
+    .feat p  { color: rgba(255,255,255,0.58); font-size: 0.9rem; }
+
+    .feat-metric {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.80rem;
+      font-weight: 800;
+      color: var(--violet-lt);
+    }
+
+    /* =====================================================
+       STATS
+       ===================================================== */
+    .stats-section {
+      padding: 96px 32px;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 18px;
+      margin-bottom: 56px;
+    }
+
+    .stat {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stat:hover {
+      border-color: var(--border-v);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-num {
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--violet);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-3);
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    .logos-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .logos-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .logo-chip {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-2);
+    }
+
+    /* =====================================================
+       FINAL CTA — Violet section
+       ===================================================== */
+    .final-cta {
+      background: var(--violet);
+      padding: 96px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Soft circle texture */
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 70%;
+      aspect-ratio: 1;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .final-cta::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      left: -5%;
+      width: 55%;
+      aspect-ratio: 1;
+      background: radial-gradient(circle, rgba(255,107,74,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .final-cta .label { color: rgba(255,255,255,0.55); position: relative; z-index: 1; }
+    .final-cta h2 { color: #fff; margin-bottom: 16px; position: relative; z-index: 1; }
+    .final-cta p  {
+      color: rgba(255,255,255,0.72);
+      max-width: 470px;
+      margin: 0 auto 40px;
+      font-size: 1.05rem;
+      position: relative;
+      z-index: 1;
+    }
+    .final-cta .btn { position: relative; z-index: 1; }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    footer {
+      background: var(--bg-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 26px 32px;
+      text-align: center;
+    }
+    footer p { font-size: 0.8125rem; color: rgba(255,255,255,0.28); }
+    footer a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: rgba(255,255,255,0.70); }
+
+    /* =====================================================
+       ANIMATIONS
+       ===================================================== */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+    @media (max-width: 860px) {
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 96px 20px 64px; }
+      .pain-points, .features, .stats-section, .final-cta { padding: 64px 20px; }
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+      .nav .btn-sm { display: none; }
+      .container { padding: 0 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-badge, .hero h1, .hero-desc, .hero-btns { animation: none; }
+      .card, .feat, .stat { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">cl<span>ay</span></a>
+      <a href="#book-demo" class="btn btn-violet btn-sm">
+        Book Your Demo
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span>👋</span>
+        Hey Emily — this one's built for you
+      </div>
+      <h1>
+        Your SDRs should be<br/>
+        <span class="accent">selling.</span>
+        <span class="warm"> Not researching.</span>
+      </h1>
+      <p class="hero-desc">
+        You're leading Sales Development at Loom — a team where every rep-hour matters.
+        If your SDRs are spending half their day researching accounts instead of booking meetings,
+        you're leaving pipeline on the table. Clay automates the research so your reps can
+        focus on what they're paid to do.
+      </p>
+      <div class="hero-btns">
+        <a href="#book-demo" class="btn btn-violet">
+          Book Your Demo
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="hero-note">30 min · No prep needed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO STRIP -->
+  <div class="logo-strip">
+    <div class="logo-strip-inner">
+      <span class="label">Trusted by</span>
+      <span class="logo-pill">OpenAI</span>
+      <span class="logo-pill">Anthropic</span>
+      <span class="logo-pill">Notion</span>
+      <span class="logo-pill">Ramp</span>
+      <span class="logo-pill">Rippling</span>
+      <span class="logo-pill">Canva</span>
+      <span class="logo-pill">Intercom</span>
+    </div>
+  </div>
+
+  <!-- PAIN POINTS -->
+  <section class="pain-points">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">Sound familiar?</div>
+        <h2>The SDR problems<br/>that kill pipeline</h2>
+        <p>Every Sales Development leader hits these walls. Clay tears them down.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <span class="card-emoji" aria-hidden="true">⏰</span>
+          <h3>SDRs spending half their day researching</h3>
+          <p>Your reps are Googling companies, reading LinkedIn profiles, and copying data into CRM by hand. Clay automates all of it so they start every sequence already prepared.</p>
+        </div>
+        <div class="card">
+          <span class="card-emoji" aria-hidden="true">📉</span>
+          <h3>Generic outreach that doesn't convert</h3>
+          <p>Spray-and-pray sequences hit spam filters and burn your domain. Personalized outreach converts 2-5x better — Clay makes it possible at scale without adding headcount.</p>
+        </div>
+        <div class="card">
+          <span class="card-emoji" aria-hidden="true">📋</span>
+          <h3>Bad lists that waste rep capacity</h3>
+          <p>If 30% of your contacts have the wrong title, wrong company, or are already customers — your SDRs are burning time on accounts that will never convert. Clay filters and enriches before your reps ever see the list.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="container">
+      <div class="section-hd">
+        <div class="label">How Clay works</div>
+        <h2>Built for SDR teams<br/>who need to perform.</h2>
+        <p>Clay gives your reps the data and personalization to book more meetings — without more headcount.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat">
+          <span class="feat-tag">Research Automation</span>
+          <h3>Cut research time by 80%.</h3>
+          <p>Clay's AI agents research every account before your reps touch it — website summary, tech stack, recent news, LinkedIn info — all structured and ready to use in a sequence.</p>
+          <div class="feat-metric">↓ 80% reduction in manual research time</div>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">AI Personalization</span>
+          <h3>Personalization that actually scales.</h3>
+          <p>Generate hyper-relevant first lines, pain-point references, and personalized value props for every prospect automatically. Your SDRs review and send — they don't write from scratch.</p>
+          <div class="feat-metric">↑ 2-5x higher reply rates with personalized outreach</div>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">Waterfall Enrichment</span>
+          <h3>Lists your reps can actually trust.</h3>
+          <p>Waterfall enrichment across 150+ providers means 2-3x better coverage. Fewer bounces. Fewer wasted dials. More time in front of real buyers.</p>
+          <div class="feat-metric">↑ 3x enrichment coverage vs. single-provider tools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="label" style="text-align:center; margin-bottom:36px;">By the numbers</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-num">3x</span>
+          <span class="stat-label">enrichment coverage vs. single tools</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">80%</span>
+          <span class="stat-label">reduction in manual research time</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">5k+</span>
+          <span class="stat-label">customers across B2B SaaS</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">4.9★</span>
+          <span class="stat-label">rating on G2</span>
+        </div>
+      </div>
+      <p class="logos-label">Trusted by teams at</p>
+      <div class="logos-row">
+        <span class="logo-chip">OpenAI</span>
+        <span class="logo-chip">Anthropic</span>
+        <span class="logo-chip">Notion</span>
+        <span class="logo-chip">Ramp</span>
+        <span class="logo-chip">Rippling</span>
+        <span class="logo-chip">Canva</span>
+        <span class="logo-chip">Intercom</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="book-demo">
+    <div class="container">
+      <div class="label">Let's talk</div>
+      <h2>See how Clay helps<br/>Loom's SDR team perform.</h2>
+      <p>30 minutes. We'll show you how Clay automates account research, generates personalized outreach, and keeps your lists clean — all in one workflow built for your team.</p>
+      <!-- TODO: Replace CALENDLY_LINK_PLACEHOLDER with real Calendly URL before sharing -->
+      <a href="CALENDLY_LINK_PLACEHOLDER" class="btn btn-white">
+        Book Your Demo — It's Free
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built for Emily Rodriguez at Loom · Powered by <a href="https://clay.com">Clay</a> · <a href="https://clay.com/privacy">Privacy</a></p>
+  </footer>
+
+</body>
+</html>
